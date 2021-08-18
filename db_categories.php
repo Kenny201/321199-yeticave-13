@@ -1,6 +1,10 @@
 <?php
 
-    #[ArrayShape( ['string', 'string'] )]
+
+#[ArrayShape([
+    'title' => 'string',
+    'code' => 'string',
+])]
     function get_all_categories($db): array
     {
         $sql_categories = 'SELECT title, code FROM categories ORDER BY created_at DESC';
@@ -8,4 +12,4 @@
         return $result_categories -> fetch_all( MYSQLI_ASSOC );
     }
 
-    $categories = get_all_categories( $dbase );
+

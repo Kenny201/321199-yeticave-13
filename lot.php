@@ -3,16 +3,14 @@
 require_once('bootstrap.php');
 $is_auth = rand(0, 1);
 $user_name = 'Виталий';
-$lots = get_all_lots($dbase);
-$categories = get_all_categories($dbase);
-
-$main = include_template('main.php', compact('categories', 'lots'));
-
+$lot = get_lot($dbase, $_GET['id']);
+$categories = get_all_categories();
+$lot_main = include_template('lot-main.php', compact('categories', 'lot'));
 $layout_content = include_template(
     'layout.php',
     [
-        'content' => $main,
-        'title' => 'Главная',
+        'content' => $lot_main,
+        'title' => 'Лот',
         'is_auth' => $is_auth,
         'user_name' => $user_name,
         'categories' => $categories
