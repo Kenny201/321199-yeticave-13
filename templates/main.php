@@ -46,14 +46,14 @@
 
                         <?php $range = get_dt_range( xssAdg( $lot['completed_at'] ) );
                             if ( $range[0] == 0 && $range[1] <= 60 ): ?>
-                        <div class="lot__timer timer timer--finishing">
+                                <div class="lot__timer timer timer--finishing">
                             <?php else: ?>
-                            <div class="lot__timer timer">
-                                <?php endif ?>
-                                <?= str_pad( $range[0], 2, "0", STR_PAD_LEFT ) . ':' . str_pad( $range[1],2,"0",STR_PAD_LEFT ) ?>
-                            </div>
-                        </div>
+                                <div class="lot__timer timer">
+                            <?php endif ?>
+                                    <?= str_pad( $range[0], 2, "0", STR_PAD_LEFT ) . ':' . str_pad( $range[1],2,"0",STR_PAD_LEFT ) ?>
+                                </div>
                     </div>
+                </div>
             </li>
         <? endforeach; ?>
     </ul>

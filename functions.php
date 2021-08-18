@@ -25,8 +25,7 @@
             $minutes = '00';
         } else {
             $diff = date_diff( $now_date, $next_date );
-            $hours = $diff -> format( '%a' ) ? $diff -> format( '%H' ) : $diff -> format( '%a' ) * 24 + $diff
-                    -> format( '%H' );
+            $hours = $diff -> format( '%a' ) ? $diff -> format( '%H' ) : $diff -> format( '%a' ) * 24 + $diff -> format( '%H' );
             $minutes = $diff -> format( '%I' );
         }
         return [(int) $hours, (int) $minutes];
