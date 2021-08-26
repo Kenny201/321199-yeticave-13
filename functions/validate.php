@@ -75,7 +75,7 @@
 
     function isCorrectFile()
     {
-        if ($_FILES['lot-img']['name'] ?? '') {
+        if (!empty($_FILES['lot-img']['name'] )) {
             $mime_type = mime_content_type($_FILES['lot-img']['tmp_name']);
             if ($mime_type !== 'image/png' && $mime_type !== 'image/jpeg') {
                 return "Добавьте картинку jpeg, png, jpg";
