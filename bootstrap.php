@@ -9,3 +9,4 @@ require_once('db/db_common.php');
 require_once('db/db_categories.php');
 require_once('db/db_lots.php');
 require_once('db/db_lot.php');
+require_once('db/db_add_lot.php');

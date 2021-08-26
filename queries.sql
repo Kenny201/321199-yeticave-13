@@ -1,7 +1,7 @@
 INSERT INTO categories -- Добавляю категории
   (title, code)
 VALUES ('Доски и лыжи', 'boards'),
-       ('Крепения', 'attachment'),
+       ('Крепления', 'attachment'),
        ('Ботинки', 'boots'),
        ('Одежда', 'clothing'),
        ('Инструменты', 'tools'),
