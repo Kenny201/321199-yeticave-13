@@ -1,35 +1,70 @@
 <?php
-    $errors = [];
 
-    function getPostVal($name) {
+    function getPostVal($name)
+    {
         return $_POST[$name] ?? "";
     }
-    function validateEmail($name) {
+
+    function validateEmail($name)
+    {
         if (!filter_input(INPUT_POST, $name, FILTER_VALIDATE_EMAIL)) {
             return "Введите корректный email";
         }
     }
 
-    function validateFilled($name) {
-        if (empty($_POST[$name])) {
+    function validateCategory($name)
+    {
+        if (!$_POST[$name]) {
+            return "Выберите категорию";
+        }
+    }
+
+    function validateFilled($name)
+    {
+        if (!$_POST[$name]) {
             return "Это поле должно быть заполнено";
         }
     }
-    function isCorrectLength($name, $min, $max) {
-        $len = strlen($_POST[$name]);
+    function validateDate($date)
+    {
+            $date = $_POST[$date];
 
-        if ($len < $min or $len > $max) {
+            $date_time_obj = DateTime::createFromFormat('Y-m-d', $date);
+            $date_valide = new DateTime('+1 days');
+            var_dump($date_time_obj->format('Y-m-d'));
+            if ($date_time_obj->format('Y-m-d') !== $date  ){
+                return "Укажите дату в формате 'ГГГГ-MM-ДД'";
+            }elseif($date_time_obj->format('Y-m-d') < $date_valide->format('Y-m-d')){
+                return "Дата должна быть больше текущей даты, хотя бы на один день'";
+            }
+
+    }
+    function validatePrice($name)
+    {
+        if ($_POST[$name]<0) {
+            return "Цена должна быть больше ноля";
+        }
+    }
+    function isCorrectLength($name, $min, $max)
+    {
+        $len = strlen($_POST[$name]);
+        if ($len < $min || $len > $max) {
             return "Значение должно быть от $min до $max символов";
         }
     }
-    $rules = [
-        'lot-title' => function() {
-            return validateFilled('lot-title');
-        },
-        'title' => function() {
-            return validateLength('title', 10, 200);
-        },
-        'description' => function() {
-            return validateLength('description', 10, 3000);
+
+    function isCorrectFile()
+    {
+        if ($_FILES['lot-img']['name'] ?? '') {
+            $mime_type = mime_content_type($_FILES['lot-img']['tmp_name']);
+            if ($mime_type !== 'image/png' && $mime_type !== 'image/jpeg') {
+                return "Добавьте картинку jpeg, png, jpg";
+            } elseif ($_FILES['lot-img']['size'] > 1000000) {
+                return "Максимальный размер файла: 1МБ";
+            }
         }
-    ];
+        return "Добавьте картинку";
+    }
+
+
+

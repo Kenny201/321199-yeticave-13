@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title><?= $title ?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
+    <link href="../css/flatpickr.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -120,7 +121,7 @@
     </div>
 </footer>
 
-<script src="flatpickr.js"></script>
-<script src="script.js"></script>
+<script src="../flatpickr.js"></script>
+<script src="../script.js"></script>
 </body>
 </html>
