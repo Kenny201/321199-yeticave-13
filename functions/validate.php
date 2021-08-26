@@ -37,31 +37,34 @@
             return "Это поле должно быть заполнено";
         }
     }
+
     function validateDate($date)
     {
-            $date = $_POST[$date];
+        $date = $_POST[$date];
 
-            if ($date) {
-                $date_time_obj = DateTime::createFromFormat('Y-m-d', $date);
-                $date_valide = new DateTime('+1 days');
+        if ($date) {
+            $date_time_obj = DateTime::createFromFormat('Y-m-d', $date);
+            $date_valide = new DateTime('+1 days');
 
-                if ($date_time_obj->format('Y-m-d') !== $date) {
-                    return "Укажите дату в формате 'ГГГГ-MM-ДД'";
-                }
-                if ($date_time_obj->format('Y-m-d') < $date_valide->format('Y-m-d')) {
-                    return "Дата должна быть больше текущей даты, хотя бы на один день'";
-                }
-            }else{
-                return "Укажите дату";
+            if ($date_time_obj->format('Y-m-d') !== $date) {
+                return "Укажите дату в формате 'ГГГГ-MM-ДД'";
             }
+            if ($date_time_obj->format('Y-m-d') < $date_valide->format('Y-m-d')) {
+                return "Дата должна быть больше текущей даты, хотя бы на один день'";
+            }
+        } else {
+            return "Укажите дату";
+        }
 
     }
+
     function validatePrice($name)
     {
-        if ($_POST[$name]<0) {
+        if ($_POST[$name] < 0) {
             return "Цена должна быть больше ноля";
         }
     }
+
     function isCorrectLength($name, $min, $max)
     {
         $len = strlen($_POST[$name]);
@@ -79,7 +82,7 @@
             } elseif ($_FILES['lot-img']['size'] > 1000000) {
                 return "Максимальный размер файла: 1МБ";
             }
-        }else{
+        } else {
             return "Добавьте картинку";
         }
 
