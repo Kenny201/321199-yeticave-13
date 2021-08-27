@@ -8,7 +8,8 @@
     </ul>
 </nav>
 
-<form class="form form--add-lot container <?= isset($errors['lot-name']) ? "form--invalid" : '' ?> " action="add.php" enctype="multipart/form-data" method="post">
+<form class="form form--add-lot container <?= isset($errors['lot-name']) ? "form--invalid" : '' ?> " action="add.php"
+      enctype="multipart/form-data" method="post">
     <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">
@@ -24,21 +25,21 @@
             <label for="category">Категория <sup>*</sup></label>
             <select id="category" name="category">
                 <?php foreach ($categories as $category): ?>
-                    <option> <?= xssAdg($category['title']) ?></option>
+                    <option value="<?= $category['id'] ?>"> <?= xssAdg($category['title']) ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="form__error"><?= $errors['category'] ?? '' ?></span>
         </div>
     </div>
 
-    <?php $classname = isset($errors['message']) ? "form__item--invalid" : ''?>
+    <?php $classname = isset($errors['message']) ? "form__item--invalid" : '' ?>
     <div class="form__item form__item--wide <?= $classname ?>">
         <label for="message">Описание <sup>*</sup></label>
         <textarea id="message" name="message" placeholder="Напишите описание лота"
                   value="<?= getPostVal('message') ?>"></textarea>
         <span class="form__error"><?= $errors['message'] ?? '' ?></span>
     </div>
-    <?php $classname = isset($errors['lot-img']) ? "form__item--invalid" : ''?>
+    <?php $classname = isset($errors['lot-img']) ? "form__item--invalid" : '' ?>
     <div class="form__item form__item--file <?= $classname ?>">
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file">
@@ -63,7 +64,7 @@
             <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?= getPostVal('lot-step') ?>">
             <span class="form__error"><?= $errors['lot-step'] ?? '' ?></span>
         </div>
-        <?php $classname = isset($errors['lot-date']) ? "form__item--invalid" : ''  ?>
+        <?php $classname = isset($errors['lot-date']) ? "form__item--invalid" : '' ?>
         <div class="form__item <?= $classname ?>">
             <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
             <input class="form__input-date" id="lot-date" type="text" name="lot-date"

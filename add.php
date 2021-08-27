@@ -10,13 +10,13 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $rules = [
             'lot-name' => static function () {
-                return validateFilled('lot-name');
+                return validateEmpty('lot-name');
             },
             'lot-rate' => static function () {
                 return validatePrice('lot-rate');
             },
             'lot-step' => static function () {
-                return validateFilled('lot-step');
+                return validateStep('lot-step');
             },
             'category' => static function () {
                 return validateCategory('category');
@@ -44,7 +44,11 @@
         $errors = array_filter($errors);
         if (!$errors) {
             uploadFile('lot-img');
-            add_lot($dbase);
+            $stmt_result = add_lot($dbase, PATH_IMG);
+            if($stmt_result){
+                $new_lot_id = $dbase->insert_id;
+                header( "Location: /lot.php?id=" . $new_lot_id);
+            }
         }
     }
 

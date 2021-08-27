@@ -1,5 +1,4 @@
 <?php
-
     /**
      * Функция возврата значения input
      * @param string $name
@@ -31,39 +30,58 @@
         }
     }
 
-    function validateFilled($name)
+    function validateEmpty($name)
     {
         if (!$_POST[$name]) {
             return "Это поле должно быть заполнено";
         }
     }
 
-    function validateDate($date)
+    function validateStep($name)
     {
-        $date = $_POST[$date];
-
-        if ($date) {
-            $date_time_obj = DateTime::createFromFormat('Y-m-d', $date);
-            $date_valide = new DateTime('+1 days');
-
-            if ($date_time_obj->format('Y-m-d') !== $date) {
-                return "Укажите дату в формате 'ГГГГ-MM-ДД'";
-            }
-            if ($date_time_obj->format('Y-m-d') < $date_valide->format('Y-m-d')) {
-                return "Дата должна быть больше текущей даты, хотя бы на один день'";
-            }
-        } else {
-            return "Укажите дату";
+        if ((!is_numeric($_POST[$name]) && !empty($_POST[$name]))) {
+            return "Введите число";
         }
-
+        if (floatval($_POST[$name]) <= 0 && $_POST[$name] !== '') {
+            return "Ставка должна быть больше ноля";
+        }
+        return validateEmpty($name);
     }
 
     function validatePrice($name)
     {
-        if ($_POST[$name] < 0) {
+        $floatval = floatval(str_replace(',', '.', $_POST[$name]));
+        if ((!is_numeric($floatval) && !empty($floatval))) {
+            return "Введите число";
+        }
+        if (floatval($floatval) <= 0 && $_POST[$name] !== '') {
             return "Цена должна быть больше ноля";
         }
+
+        return validateEmpty($name);
     }
+
+    function validateDate($date)
+    {
+
+        if ($_POST[$date]) {
+
+            $date_time_obj = DateTime::createFromFormat('Y-m-d', $date);
+            $date_valide = new DateTime('+1 days');
+            $date_time_format = $date_time_obj->format('Y-m-d');
+            $date_valide_format = $date_valide->format('Y-m-d');
+
+            if ( $date_time_format !== $date) {
+                return "Укажите дату в формате 'ГГГГ-MM-ДД'";
+            }
+            if ($date_time_format->format('Y-m-d') <  $date_valide_format ) {
+                return "Дата должна быть больше текущей даты, хотя бы на один день'";
+            }
+        }
+        return validateEmpty($date);
+
+    }
+
 
     function isCorrectLength($name, $min, $max)
     {
@@ -75,7 +93,7 @@
 
     function isCorrectFile()
     {
-        if (!empty($_FILES['lot-img']['name'] )) {
+        if (!empty($_FILES['lot-img']['name'])) {
             $mime_type = mime_content_type($_FILES['lot-img']['tmp_name']);
             if ($mime_type !== 'image/png' && $mime_type !== 'image/jpeg') {
                 return "Добавьте картинку jpeg, png, jpg";
